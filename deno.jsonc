@@ -1,0 +1,9 @@
+{
+    "tasks": {
+      "test": "deno test --doc --allow-all --parallel --coverage=./cov",
+      "help": "deno run --allow-env --allow-read --allow-sys main.ts help",
+      "compile": "deno run tasks/generator/create_error.ts --output out/aaa",
+    },
+    "imports": {
+    }
+}
