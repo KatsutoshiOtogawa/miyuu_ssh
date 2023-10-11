@@ -1,7 +1,7 @@
 
-import { miyuu_ssh } from 'https://raw.githubusercontent.com/KatsutoshiOtogawa/miyuu_ssh/v0.0.2/mod.ts';
+import { MiyuuSsh } from 'miyuu_ssh/mod.ts';
 
-const ssh = miyuu_ssh.open();
+const ssh = MiyuuSsh.open();
 
 const config = ssh.ClientConfig.init('miyuu', 'mecchakawaii!');
 
@@ -22,4 +22,4 @@ client.close();
 config.dispose();
 
 // close miyuu_ssh library.
-miyuu_ssh.close();
+MiyuuSsh.close();

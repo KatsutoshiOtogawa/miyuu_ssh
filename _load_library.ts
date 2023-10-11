@@ -1,9 +1,6 @@
+/// <reference lib="deno.unstable" />
 
-// linuxかどうかで処理分ける。
-
-const libname = "/usr/local/miyuu/libmiyuu_ssh_core.so";
-
-const library = Deno.dlopen(libname, {
+const CallSymbol = {
     "InitConfig": {
       name: "InitConfig",
       parameters: [
@@ -69,25 +66,28 @@ const library = Deno.dlopen(libname, {
       parameters: ["pointer"],
       result: "void"
     },
-  });
+} as const
 
-const { 
-  InitConfig,
-  Connect,
-  ClientClose,
-  NewSession,
-  SessionRun,
-  SessionClose,
-  Free,
-} = library.symbols;
+function _load() {
+
+  const os = Deno.build.os;
+  let libname = "";
+  if (os === 'linux') {
+    libname = "/usr/local/miyuu/libmiyuu_ssh_core.so";
+  } else if (os === 'darwin') {
+
+    libname = "/usr/"
+    // MIYUU_SSH_DEBUG=1 debugでモンキーパッチ的に分けるのはあり。
+  } else {
+    throw TypeError("Not supported os");
+  }
+
+  const library = Deno.dlopen(libname, CallSymbol);
+
+  return library;
+}
 
 export {
-    InitConfig,
-    Connect,
-    ClientClose,
-    NewSession,
-    SessionRun,
-    SessionClose,
-    Free,
-    library
+  type CallSymbol,
+  _load
 }

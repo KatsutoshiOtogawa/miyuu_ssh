@@ -1,12 +1,6 @@
-import {
-    InitConfig,
-    Connect,
-    ClientClose,
-    NewSession,
-    SessionRun,
-    SessionClose,
-    Free,
-} from './_load_library.ts'
+import { load } from './load_library.ts';
+
+// sshの方が良いかも
 
 type RawSession = Deno.PointerValue;
 
@@ -52,6 +46,8 @@ function isIpv4(ipv4: string): boolean {
     }
     return true;
 }
+
+
 
 class Client {
 
@@ -105,6 +101,8 @@ class Client {
 
         const raw_config = config.raw_config;
 
+        const { Connect } = load();
+
         const connection: RawClient = Connect(
             raw_config,
             _addr_octet,
@@ -124,6 +122,7 @@ class Client {
         this.#_close();
     }
     #_close() {
+        const { ClientClose, Free } = load();
         ClientClose(this.raw_client);
         Free(this.raw_client);
     }
@@ -144,6 +143,7 @@ class Session {
 
         const raw_client = client.raw_client;
 
+        const { NewSession } = load();
         const session: RawSession = NewSession(raw_client);
 
         return new Session(session);
@@ -155,6 +155,7 @@ class Session {
      */
     exec(cmd: string) {
         const raw_cmd = new TextEncoder().encode(cmd);
+        const { SessionRun } = load();
         SessionRun(
             this.raw_session,
             raw_cmd,
@@ -169,6 +170,7 @@ class Session {
         this.#_close();
     }
     #_close() {
+        const { SessionClose, Free } = load();
         SessionClose(this.raw_session);
         Free(this.raw_session);
     }
@@ -189,6 +191,7 @@ class ClientConfig {
         const raw_username = new TextEncoder().encode(username);
         const raw_password = new TextEncoder().encode(password);
 
+        const { InitConfig } = load();
         const config: RawClientConfig = InitConfig(
             raw_username,
             raw_username.length,
@@ -206,6 +209,7 @@ class ClientConfig {
         this.#_dispose();
     }
     #_dispose() {
+        const { Free } = load();
         Free(this.raw_config);
     }
 }
