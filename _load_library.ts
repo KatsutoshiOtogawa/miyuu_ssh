@@ -71,13 +71,20 @@ const CallSymbol = {
 function _load() {
 
   const os = Deno.build.os;
+  const MIYUU_SSH_LIB_PATH = Deno.env.get("MIYUU_SSH_LIB_PATH");
+
   let libname = "";
+
+  // 
+  if (MIYUU_SSH_LIB_PATH) {
+    libname = MIYUU_SSH_LIB_PATH;
+  }
   if (os === 'linux') {
     libname = "/usr/local/miyuu/libmiyuu_ssh_core.so";
-  } else if (os === 'darwin') {
+  // darwinの指定は後。
+  // } else if (os === 'darwin') {
 
-    libname = "/usr/"
-    // MIYUU_SSH_DEBUG=1 debugでモンキーパッチ的に分けるのはあり。
+    // libname = "/Users/katsutoshi/source/miyuu_ssh/out/libmiyuu_ssh_core.dylib"
   } else {
     throw TypeError("Not supported os");
   }

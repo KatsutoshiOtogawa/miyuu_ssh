@@ -36,6 +36,8 @@ install share library from [https://github.com/KatsutoshiOtogawa/miyuu_ssh_core]
 
 (Planned support apt and rpm package format in future.)
 
+### linux
+
 ```bash
 # download MiyuuSsh core library
 MIYUU_CORE_VERSION=v0.0.12
@@ -49,6 +51,30 @@ tar zxvf libmiyuu_ssh_core_linux.tar.gz -C /usr/local/miyuu/ --strip-component=1
 
 rm libmiyuu_ssh_core_linux.tar.gz
 ```
+
+### macos
+
+I'm going to make it easier. Sorry for the inconvenience.
+
+```bash
+# download MiyuuSsh core library
+MIYUU_CORE_VERSION=v0.0.12
+wget "https://github.com/KatsutoshiOtogawa/miyuu_ssh_core/releases/download/${MIYUU_CORE_VERSION}/libmiyuu_ssh_core_mac.tar.gz"
+
+#  extract tar ball.
+tar zxvf libmiyuu_ssh_core_mac.tar.gz
+
+export MIYUU_SSH_LIB_PATH=path/you/want/to/libmiyuu_ssh_core_mac.dylib
+
+# 適当なところに配置する。
+cp out/libmiyuu_ssh_core_mac.dylib $MIYUU_SSH_LIB_PATH
+```
+
+### windows
+
+Not yet supported.
+
+coming soon.
 
 ## How to use
 
@@ -91,5 +117,8 @@ miyuu_ssh is using ffi.
 deno's ffi is unstable and, use --unstable flag.
 
 ```bash
+# if you use macos
+# export MIYUU_SSH_LIB_PATH=path/you/want/to/libmiyuu_ssh_core_mac.dylib
+
 deno run --unstable example.ts
 ```

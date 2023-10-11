@@ -3,15 +3,21 @@ import { library } from "./load_library.ts"
 
 class MiyuuSsh {
 
-    static count = 0;
+    // MiyuuConnectionの方が良いかも
+
+    static #count = 0;
     /**
      * 
      * @returns library
      */
     static open() {
         // 開いている数をカウント
-        this.count += 1;
+        this.#count += 1;
         return {...Miyuu}
+    }
+
+    static get count() {
+        return this.#count;
     }
 
     /**
@@ -23,11 +29,11 @@ class MiyuuSsh {
         if (library === null) {
             return;
         }
-        this.count -= 1;
+        this.#count -= 1;
 
         // staticの数が0になったら解放。
         // 排他処理
-        if (this.count === 0) {
+        if (this.#count === 0) {
             library.close();
         } 
     }
