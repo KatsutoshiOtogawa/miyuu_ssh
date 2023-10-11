@@ -1,6 +1,7 @@
 # miyuu_ssh
 
 miyuu_ssh is Deno ssh client library.
+[go x/crypto/ssh](https://pkg.go.dev/golang.org/x/crypto/ssh) wrapeer. 
 
 ## support platform
 
@@ -19,7 +20,9 @@ support intel mac only.
 
 bigsur monterey ventura
 
-windows
+### windows
+
+Not yet supported
 
 windows server 2019
 windows server 2022
@@ -29,20 +32,27 @@ windows 11
 
 ## prerequisite
 
-install share library from [](miyuu_ssh_core).
+install share library from [https://github.com/KatsutoshiOtogawa/miyuu_ssh_core](miyuu_ssh_core).
+
+(Planned support apt and rpm package format in future.)
 
 ```bash
-# download 
+# download MiyuuSsh core library
+MIYUU_CORE_VERSION=v0.0.12
+wget "https://github.com/KatsutoshiOtogawa/miyuu_ssh_core/releases/download/${MIYUU_CORE_VERSION}/libmiyuu_ssh_core_linux.tar.gz"
 
-# create miyuu_ssh dependency directory
-sudo mkdir /usr/local/miyuu
+# create directory for MiyuuSsh
+mkdir /usr/local/miyuu
 
-sudo unzip linux.zip -d /usr/local/miyuu
+# expand tar to Miyuu directory.
+tar zxvf libmiyuu_ssh_core_linux.tar.gz -C /usr/local/miyuu/ --strip-component=1
+
+rm libmiyuu_ssh_core_linux.tar.gz
 ```
 
-## how to use
+## How to use
 
-```ts
+```ts:example.ts
 import { miyuu_ssh } from "./miyuu_ssh.ts";
 
 const ssh = miyuu_ssh.open();
@@ -67,4 +77,19 @@ config.dispose();
 
 // close
 miyuu_ssh.close();
+```
+
+```json:deno.jsonc
+{
+    "imports": {
+      "miyuu_ssh/": "https://raw.githubusercontent.com/KatsutoshiOtogawa/miyuu_ssh/v0.0.2/"
+    }
+}
+```
+
+miyuu_ssh is using ffi.
+deno's ffi is unstable and, use --unstable flag.
+
+```bash
+deno run --unstable example.ts
 ```
