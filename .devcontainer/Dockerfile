@@ -23,6 +23,11 @@ ENV TYPESCRIPT_VERSION=5.2.2
 RUN npm install -g typescript@${TYPESCRIPT_VERSION} 
 RUN apt install -y neovim
 
-# RUN mkdir /usr/local/miyuu
-# RUN unzip linux.zip -d /usr/local/miyuu
-# RUN unzip -A linux.zip -d /usr/local/miyuu
+ENV MIYUU_CORE_VERSION=v0.0.12
+RUN wget "https://github.com/KatsutoshiOtogawa/miyuu_ssh_core/releases/download/${MIYUU_CORE_VERSION}/libmiyuu_ssh_core_linux.tar.gz"
+
+RUN mkdir /usr/local/miyuu
+
+RUN tar zxvf libmiyuu_ssh_core_linux.tar.gz -C /usr/local/miyuu/ --strip-component=1
+
+RUN rm libmiyuu_ssh_core_linux.tar.gz

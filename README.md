@@ -4,6 +4,7 @@ miyuu_ssh is Deno ssh client library.
 
 ## support platform
 
+deno support platform.
 
 linux 
 ubuntu foccal jammy
@@ -13,6 +14,8 @@ debian bullseye bookworm
 later version GLIBC_2.32
 
 macos
+
+support intel mac only.
 
 bigsur monterey ventura
 

@@ -1,5 +1,5 @@
 
-import { miyuu_ssh } from 'https://raw.githubusercontent.com/KatsutoshiOtogawa/miyuu_ssh/v0.0.1/mod.ts';
+import { miyuu_ssh } from 'https://raw.githubusercontent.com/KatsutoshiOtogawa/miyuu_ssh/v0.0.2/mod.ts';
 
 const ssh = miyuu_ssh.open();
 
