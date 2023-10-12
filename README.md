@@ -79,9 +79,9 @@ coming soon.
 ## How to use
 
 ```ts:example.ts
-import { miyuu_ssh } from "./miyuu_ssh.ts";
+import { MiyuuSsh } from 'miyuu_ssh/mod.ts';
 
-const ssh = miyuu_ssh.open();
+const ssh = MiyuuSsh.open();
 
 const config = ssh.ClientConfig.init('miyuu', 'mecchakawaii!');
 
@@ -102,13 +102,13 @@ client.close();
 config.dispose();
 
 // close
-miyuu_ssh.close();
+MiyuuSsh.close();
 ```
 
 ```json:deno.jsonc
 {
     "imports": {
-      "miyuu_ssh/": "https://raw.githubusercontent.com/KatsutoshiOtogawa/miyuu_ssh/v0.0.2/"
+      "miyuu_ssh/": "https://deno.land/x/miyuu_ssh@v0.0.7/"
     }
 }
 ```
